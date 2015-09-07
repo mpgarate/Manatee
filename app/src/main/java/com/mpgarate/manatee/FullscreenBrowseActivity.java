@@ -1,22 +1,16 @@
 package com.mpgarate.manatee;
 
-import com.mpgarate.manatee.db.ManateeContract;
-import com.mpgarate.manatee.model.IdeaEntry;
-import com.mpgarate.manatee.model.IdeaStore;
-import com.mpgarate.manatee.util.SystemUiHider;
-
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.mpgarate.manatee.model.IdeaStore;
+import com.mpgarate.manatee.util.SystemUiHider;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +40,8 @@ public class FullscreenBrowseActivity extends Activity {
 
         setContentView(R.layout.activity_fullscreen_browse);
 
-        findViewById(R.id.next_idea_button).setOnClickListener(buttonClickListener);
+        findViewById(R.id.next_idea_button).setOnClickListener
+                (buttonClickListener);
 
         this.preferences = getSharedPreferences(PREFS_NAME, 0);
         this.ideaStore = new IdeaStore(preferences);
@@ -78,6 +73,11 @@ public class FullscreenBrowseActivity extends Activity {
         }
 
         t.setText(ideas.remove(0));
+    }
+
+    public void manageIdeas(View view) {
+        Intent intent = new Intent(this, IdeasActivity.class);
+        startActivity(intent);
     }
 
     @Override
