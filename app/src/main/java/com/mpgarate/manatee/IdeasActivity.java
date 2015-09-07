@@ -1,37 +1,39 @@
 package com.mpgarate.manatee;
 
+import android.app.ListActivity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-public class IdeasActivity extends AppCompatActivity {
+import com.mpgarate.manatee.model.IdeaStore;
+
+public class IdeasActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ideas);
+
+        SharedPreferences preferences = getSharedPreferences(Constants.PREFS_NAME, 0);
+        IdeaStore ideaStore = new IdeaStore(preferences);
+
+        String[] data = ideaStore.getAll().toArray(new String[ideaStore.size()]);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android
+                .R.layout.simple_list_item_1, data);
+
+        ListView lv = getListView();
+
+        lv.setAdapter(adapter);
+
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ideas, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

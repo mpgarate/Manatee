@@ -26,8 +26,6 @@ public class FullscreenBrowseActivity extends Activity {
     private final static Logger LOGGER = Logger.getLogger
             (FullscreenBrowseActivity.class.getName());
 
-    private final static String PREFS_NAME = "ManateeConfig";
-
     private List<String> ideas = new LinkedList<>();
 
     private SharedPreferences preferences;
@@ -43,7 +41,7 @@ public class FullscreenBrowseActivity extends Activity {
         findViewById(R.id.next_idea_button).setOnClickListener
                 (buttonClickListener);
 
-        this.preferences = getSharedPreferences(PREFS_NAME, 0);
+        this.preferences = getSharedPreferences(Constants.PREFS_NAME, 0);
         this.ideaStore = new IdeaStore(preferences);
 
         ideaStore.create("example idea 1");

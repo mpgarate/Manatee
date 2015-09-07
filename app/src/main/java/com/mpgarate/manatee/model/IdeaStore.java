@@ -41,4 +41,8 @@ public class IdeaStore {
         return new ArrayList<>(preferences.getStringSet
                 (IDEA_ENTRIES_KEY, Collections.<String>emptySet()));
     }
+
+    public int size() {
+        return getAll().size();
+    }
 }
