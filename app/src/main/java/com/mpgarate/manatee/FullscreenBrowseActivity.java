@@ -44,12 +44,12 @@ public class FullscreenBrowseActivity extends Activity {
         this.preferences = getSharedPreferences(Constants.PREFS_NAME, 0);
         this.ideaStore = new IdeaStore(preferences);
 
-        ideaStore.create("example idea 1");
-        ideaStore.create("example idea 2");
-        ideaStore.create("example idea 3");
-        ideaStore.create("example idea 4");
-        ideaStore.create("example idea 5");
-        ideaStore.create("example idea 6");
+//        ideaStore.create("example idea 1");
+//        ideaStore.create("example idea 2");
+//        ideaStore.create("example idea 3");
+//        ideaStore.create("example idea 4");
+//        ideaStore.create("example idea 5");
+//        ideaStore.create("example idea 6");
 
         showRandomItem();
     }
