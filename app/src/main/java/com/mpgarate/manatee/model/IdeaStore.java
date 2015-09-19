@@ -1,6 +1,7 @@
 package com.mpgarate.manatee.model;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,8 +16,20 @@ public class IdeaStore {
 
     private final SharedPreferences preferences;
 
+    private Set<String> ideas;
+
     public IdeaStore(SharedPreferences preferences) {
         this.preferences = preferences;
+        this.ideas = preferences.getStringSet(IDEA_ENTRIES_KEY, new HashSet
+                <String>());
+    }
+
+    private void writeChanges() {
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putStringSet(IDEA_ENTRIES_KEY, ideas);
+        // consider using .apply();
+        editor.commit();
     }
 
     public void create(String text) {
@@ -24,25 +37,26 @@ public class IdeaStore {
             throw new IllegalArgumentException();
         }
 
-        SharedPreferences.Editor editor = preferences.edit();
+        ideas.add(text);
 
-        Collection<String> entries = getAll();
+        writeChanges();
+    }
 
-        Set<String> newSet = new HashSet<String>(entries);
+    public void remove(String text) {
+        if (null == text || text.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
 
-        newSet.add(text);
-
-        editor.putStringSet(IDEA_ENTRIES_KEY, newSet);
-        // consider using .apply();
-        editor.commit();
+        Log.i("removing", text);
+        Log.i("success?", "" + ideas.remove(text));
+        writeChanges();
     }
 
     public List<String> getAll() {
-        return new ArrayList<>(preferences.getStringSet
-                (IDEA_ENTRIES_KEY, Collections.<String>emptySet()));
+        return new ArrayList<>(ideas);
     }
 
     public int size() {
-        return getAll().size();
+        return ideas.size();
     }
 }

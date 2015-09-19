@@ -70,7 +70,9 @@ public class FullscreenBrowseActivity extends Activity {
             Collections.shuffle(ideas);
         }
 
-        t.setText(ideas.remove(0));
+        if (!ideas.isEmpty()) {
+            t.setText(ideas.remove(0));
+        }
     }
 
     public void manageIdeas(View view) {
